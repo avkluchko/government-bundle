@@ -29,7 +29,8 @@ class PSRNValidatorTest extends TestCase
             ['             ', false], // 13 whitespaces
             ['abcd123456789', false],
             ['1234567891577', false],
-            ['1234567891571', true],
+            ['1234567891579', true],
+            ['1234567891580', true],
         ];
     }
 }
