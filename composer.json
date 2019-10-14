@@ -1,6 +1,6 @@
 {
     "name": "avkluchko/government-bundle",
-    "description": "Utilities for use with government classifiers",
+    "description": "Utilities for use with russians government classifiers and dictionaries",
     "type": "symfony-bundle",
     "license": "MIT",
     "authors": [
@@ -16,7 +16,6 @@
         "symfony/http-kernel": "^4.0"
     },
     "require-dev": {
-        "symfony/test-pack": "^1.0",
         "symfony/phpunit-bridge": "^4.3"
     },
     "autoload": {
