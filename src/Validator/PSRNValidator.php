@@ -8,7 +8,16 @@ class PSRNValidator
     {
         $value = trim($value);
 
-        if (!preg_match('/^\d{13}$/', $value)) {
+        if (!preg_match('/^\d{13}$/', $value) && !preg_match('/^\d{15}$/', $value)) {
+            return false;
+        }
+
+        if (!in_array($value[0], [1, 3, 5])) {
+            return false;
+        }
+
+        $year = substr($value, 1, 2);
+        if ($year < 2 ||  $year > date('y')) {
             return false;
         }
 
