@@ -1,6 +1,6 @@
 <?php
 
-namespace AVKluchko\X509Bundle;
+namespace AVKluchko\GovernmentBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
