@@ -6,5 +6,6 @@
     <services>
         <service id="AVKluchko\GovernmentBundle\Validator\INNValidator" />
         <service id="AVKluchko\GovernmentBundle\Validator\OGRNValidator" />
+        <service id="AVKluchko\GovernmentBundle\Validator\SNILSValidator" />
     </services>
 </container>
