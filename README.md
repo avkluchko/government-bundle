@@ -27,7 +27,7 @@ in your `AppKernel.php` file
 
 ## Usage
 
-PSRN Validator - validate Primary State Registration Number (OGRN).
+OGRN Validator - validate Primary State Registration Number (OGRN).
 
 ```php
 // src/Controller/SomeController.php
@@ -38,7 +38,24 @@ class SomeController
 {
     public function index(OGRNValidator $validator)
     {
-        $isValid = $validator->isValid('some_psrn');
+        $isValid = $validator->isValid('some_ogrn');
+        // ...
+    }
+}
+```
+
+INN Validator - validate Taxpayer Identification Number (INN).
+
+```php
+// src/Controller/SomeController.php
+use AVKluchko\GovernmentBundle\Validator\INNValidator;
+
+// ...
+class SomeController
+{
+    public function index(INNValidator $validator)
+    {
+        $isValid = $validator->isValid('some_inn');
         // ...
     }
 }
