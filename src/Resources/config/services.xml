@@ -4,6 +4,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services
         https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="AVKluchko\GovernmentBundle\Service\PSRNService" />
+        <service id="AVKluchko\GovernmentBundle\Validator\INNValidator" />
+        <service id="AVKluchko\GovernmentBundle\Validator\OGRNValidator" />
     </services>
 </container>

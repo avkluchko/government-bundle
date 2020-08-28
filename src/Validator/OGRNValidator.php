@@ -2,7 +2,7 @@
 
 namespace AVKluchko\GovernmentBundle\Validator;
 
-class PSRNValidator
+class OGRNValidator
 {
     public function isValid(string $value): bool
     {

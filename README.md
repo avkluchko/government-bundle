@@ -31,12 +31,12 @@ PSRN Validator - validate Primary State Registration Number (OGRN).
 
 ```php
 // src/Controller/SomeController.php
-use AVKluchko\GovernmentBundle\Validator\PSRNValidator;
+use AVKluchko\GovernmentBundle\Validator\OGRNValidator;
 
 // ...
 class SomeController
 {
-    public function index(PSRNValidator $validator)
+    public function index(OGRNValidator $validator)
     {
         $isValid = $validator->isValid('some_psrn');
         // ...

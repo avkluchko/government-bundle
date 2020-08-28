@@ -2,24 +2,27 @@
 
 namespace AVKluchko\GovernmentBundle\Tests\Validator;
 
-use AVKluchko\GovernmentBundle\Validator\PSRNValidator;
+use AVKluchko\GovernmentBundle\Validator\OGRNValidator;
 use PHPUnit\Framework\TestCase;
 
-class PSRNValidatorTest extends TestCase
+class OGRNValidatorTest extends TestCase
 {
     private $validator;
 
     public function setUp(): void
     {
-        $this->validator = new PSRNValidator();
+        $this->validator = new OGRNValidator();
     }
 
     /**
      * @dataProvider provideValues
+     *
+     * @param string $value
+     * @param bool $expected
      */
-    public function testIsValid(string $value, bool $expected)
+    public function testIsValid(string $value, bool $expected): void
     {
-        $this->assertEquals($this->validator->isValid($value), $expected);
+        self::assertEquals($this->validator->isValid($value), $expected);
     }
 
     public function provideValues(): array
@@ -32,6 +35,7 @@ class PSRNValidatorTest extends TestCase
             ['1014567891579', false], // wrong year (less then 2002)
             ['1324567891579', false], // wrong year (more then current year)
             ['1124567891577', false], // wrong control sum
+            ['103456789157', false],  // wrong length
             ['1034567891577', true],
             ['1134567891590', true],
             ['1115038000263', true], // real psrn (ogrn)

@@ -1,6 +1,6 @@
 {
     "name": "avkluchko/government-bundle",
-    "description": "Utilities for use with russians government classifiers and dictionaries",
+    "description": "Utilities for use with Russian government classifiers and dictionaries",
     "type": "symfony-bundle",
     "license": "MIT",
     "authors": [
