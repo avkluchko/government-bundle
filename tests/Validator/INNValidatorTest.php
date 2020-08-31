@@ -41,6 +41,11 @@ class INNValidatorTest extends TestCase
             ['114567857921', false],
             ['114564878569', false],
             ['164400537302', true],
+
+            ['103008227', true],
+            ['0103008227', true],
+            ['00103008227', true],
+            ['000103008227', true],
         ];
     }
 
@@ -64,5 +69,16 @@ class INNValidatorTest extends TestCase
             ['98760543219', INNValidator::C11, 7],
             ['123123789012', INNValidator::C12, 9],
         ];
+    }
+
+    public function testNormalizeLength(): void
+    {
+        self::assertEquals('064400537302', $this->validator->normalizeLength('064400537302'));
+        self::assertEquals('064400537302', $this->validator->normalizeLength('64400537302'));
+
+        self::assertEquals('0103008227', $this->validator->normalizeLength('103008227'));
+        self::assertEquals('0103008227', $this->validator->normalizeLength('0103008227'));
+        self::assertEquals('0103008227', $this->validator->normalizeLength('00103008227'));
+        self::assertEquals('0103008227', $this->validator->normalizeLength('000103008227'));
     }
 }

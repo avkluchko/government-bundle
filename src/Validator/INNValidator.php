@@ -16,24 +16,34 @@ class INNValidator
             return false;
         }
 
-        if (!preg_match('/^\d{10}$/', $value) && !preg_match('/^\d{12}$/', $value)) {
+        if (!preg_match('/^\d{9,12}$/', $value)) {
             return false;
         }
 
-        if (strlen($value) === 10) {
-            $sum = $this->getControlSum($value, self::C10);
-
-            return $sum === (int) $value[9];
-        }
+        $value = $this->normalizeLength($value);
 
         if (strlen($value) === 12) {
             $sum11 = $this->getControlSum($value, self::C11);
             $sum12 = $this->getControlSum($value, self::C12);
 
-            return $sum11 === (int) $value[10] && $sum12 === (int) $value[11];
+            return $sum11 === (int)$value[10] && $sum12 === (int)$value[11];
         }
 
-        return false;
+        $sum = $this->getControlSum($value, self::C10);
+
+        return $sum === (int)$value[9];
+
+    }
+
+    public function normalizeLength($value): string
+    {
+        $value = str_pad($value, 12, '0', STR_PAD_LEFT);
+
+        if ($value[0] === '0' && $value[1] === '0') {
+            $value = substr($value, 2, 12);
+        }
+
+        return $value;
     }
 
     /**
@@ -48,7 +58,7 @@ class INNValidator
         $sum = 0;
 
         foreach ($coefficients as $i => $c) {
-            $sum += $c * (int) $value[$i];
+            $sum += $c * (int)$value[$i];
         }
 
         return $sum % 11 % 10;
