@@ -11,5 +11,15 @@ services:
             - ./:/app:delegated
             - composer:/root/.composer/cache
 
+    php72-cli:
+        build:
+            context: ./docker
+            dockerfile: php72-cli.docker
+        environment:
+            COMPOSER_MEMORY_LIMIT: -1
+        volumes:
+            - ./:/app:delegated
+            - composer:/root/.composer/cache
+
 volumes:
     composer:
