@@ -34,18 +34,15 @@ class SNILSValidator
     {
         $sum = 0;
 
-        for ($i = strlen($value); $i > 0; $i--) {
-            $sum += $i * $value[$i - 1];
+        $len = strlen($value);
+        for ($i = 1; $i <= $len; $i++) {
+            $sum += $i * $value[$len - $i];
         }
 
-        while ($sum > 101) {
+        while ($sum > 100) {
             $sum %= 101;
         }
 
-        if ($sum === 100 || $sum === 101) {
-            return 0;
-        }
-
-        return $sum;
+        return $sum === 100 ? 0 : $sum;
     }
 }
