@@ -2,7 +2,7 @@ up: docker-up
 down: docker-down
 restart: docker-down docker-up
 init: docker-down-clear docker-pull docker-build docker-up composer-install
-tests: testing-71
+tests: tests-php
 
 docker-up:
 	docker-compose up -d
@@ -20,7 +20,7 @@ docker-build:
 	docker-compose build
 
 composer-install:
-	docker-compose run --rm php71-cli composer install
+	docker-compose run --rm php81-cli composer install
 
-testing-71:
-	docker-compose run --rm php71-cli vendor/bin/simple-phpunit
+tests-php:
+	docker-compose run --rm php81-cli vendor/bin/simple-phpunit
