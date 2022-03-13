@@ -14,34 +14,21 @@ class SNILSValidatorTest extends TestCase
         $this->validator = new SNILSValidator();
     }
 
-    /**
-     * @dataProvider provideValues
-     */
-    public function testIsValid(string $value, bool $expected): void
+    public function testIsValid(): void
     {
-        self::assertEquals($this->validator->isValid($value), $expected);
-    }
+        self::assertEquals(false, $this->validator->isValid(''));
+        self::assertEquals(false, $this->validator->isValid('         '));
 
-    /**
-     * @phpstan-ignore-next-line
-     */
-    public function provideValues(): array
-    {
-        return [
-            ['', false],
-            ['         ', false], // 13 whitespaces
-            ['abcd1234521', false],
+        self::assertEquals(false, $this->validator->isValid('abcd1234521'));
+        self::assertEquals(true, $this->validator->isValid('12345678964'));
+        self::assertEquals(true, $this->validator->isValid('123-456-789-64'));
+        self::assertEquals(true, $this->validator->isValid('123-456-789 64'));
+        self::assertEquals(true, $this->validator->isValid('123 456 789 64'));
 
-            ['12345678964', true],
-            ['123-456-789-64', true],
-            ['123-456-789 64', true],
-            ['123 456 789 64', true],
+        self::assertEquals(false, $this->validator->isValid('001 001 998 01'));
+        self::assertEquals(true, $this->validator->isValid('001 001 999 65'));
 
-            ['001 001 998 01', false],
-            ['001 001 999 65', true],
-
-            ['555-444-333 97', true],
-        ];
+        self::assertEquals(true, $this->validator->isValid('555-444-333 97'));
     }
 
     public function testGetControlSum(): void
