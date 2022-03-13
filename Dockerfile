@@ -1,4 +1,4 @@
-FROM php:8.1-cli-alpine AS php81_cli
+FROM php:8.1-cli-alpine AS php
 
 # persistent / runtime deps
 RUN apk add --no-cache \

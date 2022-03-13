@@ -1,26 +1,62 @@
-up: docker-up
-down: docker-down
-restart: docker-down docker-up
-init: docker-down-clear docker-pull docker-build docker-up composer-install
-tests: tests-php
+SHELL=/bin/bash
 
-docker-up:
-	docker-compose up -d
+# Executables (local)
+DOCKER_COMP = docker-compose -f docker-compose.yml
 
-docker-down:
-	docker-compose down --remove-orphans
+# Docker containers
+PHP_CONT = $(DOCKER_COMP) run --rm php
 
-docker-down-clear:
-	docker-compose down -v --remove-orphans
+# Executables
+COMPOSER = $(PHP_CONT) composer
+PHPUNIT  = $(PHP_CONT) php ./vendor/bin/simple-phpunit
+PHPCS    = $(PHP_CONT) php ./vendor/bin/phpcs
+PHPSTAN  = $(PHP_CONT) php ./vendor/bin/phpstan
 
-docker-pull:
-	docker-compose pull
+## —— The Dwelling Makefile —————————————————————————————————————————————————
+help: ## Outputs this help screen
+	@grep -E '(^[a-zA-Z0-9_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}{printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
 
-docker-build:
-	docker-compose build
 
-composer-install:
-	docker-compose run --rm php81-cli composer install
+## —— Docker 🐳 ——————————————————————————————————————————————————————————————
+build: ## Builds the Docker images
+	@$(DOCKER_COMP) build --pull
 
-tests-php:
-	docker-compose run --rm php81-cli vendor/bin/simple-phpunit
+rebuild: ## Builds the Docker images without cache
+	@$(DOCKER_COMP) build --pull --no-cache
+
+logs: ## Show live logs
+	@$(DOCKER_COMP) logs --tail=0 --follow
+
+sh: ## Connect to the PHP FPM container
+	@$(PHP_CONT) sh
+
+
+## —— Composer ——————————————————————————————————————————————————————————————
+composer: ## Run composer, pass the parameter "c=" to run a given command, example: make composer c='req symfony/orm-pack'
+	@$(eval c ?=)
+	@$(COMPOSER) $(c)
+
+vendor: ## Install vendors according to the current composer.lock file
+vendor: c=install --prefer-dist --no-interaction
+vendor: composer
+
+
+## —— Application ———————————————————————————————————————————————————————————
+init: ## Full initialization
+init: build vendor
+
+
+## —— Tests —————————————————————————————————————————————————————————————————
+test: phpunit.xml.dist check ## Run tests with optional suite and filter
+	@$(eval testsuite ?= 'all')
+	@$(eval filter ?= '.')
+	@$(PHPUNIT) --testsuite=$(testsuite) --filter=$(filter) --stop-on-failure
+
+test-all: phpunit.xml.dist ## Run all tests
+	@$(PHPUNIT) --stop-on-failure
+
+phpcs: phpcs.xml.dist ## Run CodeSniffer
+	@$(PHPCS)
+
+phpstan: phpstan.neon.dist ## Run PHPStan
+	@$(PHPSTAN)

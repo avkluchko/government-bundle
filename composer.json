@@ -16,7 +16,11 @@
         "symfony/http-kernel": "^4.0 || ^5.1.5"
     },
     "require-dev": {
-        "symfony/phpunit-bridge": "^4.1.12 || ^5.1.5"
+        "symfony/phpunit-bridge": "^4.1.12 || ^5.1.5",
+        "squizlabs/php_codesniffer": "^3.6",
+        "phpstan/phpstan": "^1.4",
+        "phpstan/phpstan-symfony": "^1.1",
+        "phpunit/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {

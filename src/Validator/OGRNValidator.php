@@ -17,7 +17,7 @@ class OGRNValidator
         }
 
         $year = substr($value, 1, 2);
-        if ($year < 2 ||  $year > date('y')) {
+        if ($year < 2 || $year > date('y')) {
             return false;
         }
 

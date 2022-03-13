@@ -2,7 +2,6 @@
 
 namespace AVKluchko\GovernmentBundle\Tests\Validator;
 
-use AVKluchko\GovernmentBundle\Validator\OGRNValidator;
 use AVKluchko\GovernmentBundle\Validator\SNILSValidator;
 use PHPUnit\Framework\TestCase;
 

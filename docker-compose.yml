@@ -1,30 +1,10 @@
-version: '3.7'
+version: '3.4'
 
 services:
-#    php71-cli:
-#        build:
-#            context: ./docker
-#            dockerfile: php71-cli.dockerfile
-#        environment:
-#            COMPOSER_MEMORY_LIMIT: -1
-#        volumes:
-#            - ./:/app:delegated
-#            - composer:/root/.composer/cache
-#
-#    php72-cli:
-#        build:
-#            context: ./docker
-#            dockerfile: php72-cli.dockerfile
-#        environment:
-#            COMPOSER_MEMORY_LIMIT: -1
-#        volumes:
-#            - ./:/app:delegated
-#            - composer:/root/.composer/cache
-
-    php81-cli:
+    php:
         build:
             context: .
-            target: php81_cli
+            target: php
         environment:
             COMPOSER_MEMORY_LIMIT: -1
         volumes:

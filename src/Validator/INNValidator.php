@@ -32,7 +32,6 @@ class INNValidator
         $sum = $this->getControlSum($value, self::C10);
 
         return $sum === (int)$value[9];
-
     }
 
     public function normalizeLength($value): string
