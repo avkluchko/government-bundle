@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class OGRNValidatorTest extends TestCase
 {
-    private $validator;
+    private OGRNValidator $validator;
 
     public function setUp(): void
     {
@@ -16,15 +16,15 @@ class OGRNValidatorTest extends TestCase
 
     /**
      * @dataProvider provideValues
-     *
-     * @param string $value
-     * @param bool $expected
      */
     public function testIsValid(string $value, bool $expected): void
     {
         self::assertEquals($this->validator->isValid($value), $expected);
     }
 
+    /**
+     * @phpstan-ignore-next-line
+     */
     public function provideValues(): array
     {
         return [

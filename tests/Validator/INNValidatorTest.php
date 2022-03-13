@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class INNValidatorTest extends TestCase
 {
-    private $validator;
+    private INNValidator $validator;
 
     public function setUp(): void
     {
@@ -16,15 +16,15 @@ class INNValidatorTest extends TestCase
 
     /**
      * @dataProvider provideINNValues
-     *
-     * @param string $value
-     * @param bool $expected
      */
     public function testIsValid(string $value, bool $expected): void
     {
         self::assertEquals($this->validator->isValid($value), $expected);
     }
 
+    /**
+     * @phpstan-ignore-next-line
+     */
     public function provideINNValues(): array
     {
         return [
@@ -51,16 +51,16 @@ class INNValidatorTest extends TestCase
 
     /**
      * @dataProvider provideControlSumValues
-     *
-     * @param string $value
-     * @param array $coefficients
-     * @param int $expected
+     * @param array<int> $coefficients
      */
     public function testGetControlSum(string $value, array $coefficients, int $expected): void
     {
         self::assertEquals($this->validator->getControlSum($value, $coefficients), $expected);
     }
 
+    /**
+     * @phpstan-ignore-next-line
+     */
     public function provideControlSumValues(): array
     {
         return [

@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class SNILSValidatorTest extends TestCase
 {
-    private $validator;
+    private SNILSValidator $validator;
 
     public function setUp(): void
     {
@@ -16,15 +16,15 @@ class SNILSValidatorTest extends TestCase
 
     /**
      * @dataProvider provideValues
-     *
-     * @param string $value
-     * @param bool $expected
      */
     public function testIsValid(string $value, bool $expected): void
     {
         self::assertEquals($this->validator->isValid($value), $expected);
     }
 
+    /**
+     * @phpstan-ignore-next-line
+     */
     public function provideValues(): array
     {
         return [

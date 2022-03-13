@@ -26,15 +26,15 @@ class INNValidator
             $sum11 = $this->getControlSum($value, self::C11);
             $sum12 = $this->getControlSum($value, self::C12);
 
-            return $sum11 === (int)$value[10] && $sum12 === (int)$value[11];
+            return $sum11 === intval($value[10]) && $sum12 === intval($value[11]);
         }
 
         $sum = $this->getControlSum($value, self::C10);
 
-        return $sum === (int)$value[9];
+        return $sum === intval($value[9]);
     }
 
-    public function normalizeLength($value): string
+    public function normalizeLength(string $value): string
     {
         $value = str_pad($value, 12, '0', STR_PAD_LEFT);
 
@@ -48,16 +48,13 @@ class INNValidator
     /**
      * Calculate INN control sum for different coefficients
      *
-     * @param string $value
-     * @param array $coefficients
-     * @return int
+     * @param array<int> $coefficients
      */
     public function getControlSum(string $value, array $coefficients): int
     {
         $sum = 0;
-
         foreach ($coefficients as $i => $c) {
-            $sum += $c * (int)$value[$i];
+            $sum += $c * intval($value[$i]);
         }
 
         return $sum % 11 % 10;
