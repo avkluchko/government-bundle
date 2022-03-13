@@ -60,3 +60,20 @@ class SomeController
     }
 }
 ```
+
+SNILS Validator - validate Individual insurance account number (SNILS).
+
+```php
+// src/Controller/SomeController.php
+use AVKluchko\GovernmentBundle\Validator\SNILSValidator;
+
+// ...
+class SomeController
+{
+    public function index(SNILSValidator $validator)
+    {
+        $isValid = $validator->isValid('some_snils');
+        // ...
+    }
+}
+```
