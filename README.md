@@ -9,7 +9,7 @@ Utilities for use with official Russians classifiers and dictionaries.
 
 ## Requirements
 
-The minumum requirement by Government Bundle is that your web-server supports PHP 7.1 or above. 
+The minumum requirement by Government Bundle is that your web-server supports PHP 7.4 or above. 
 
 **Warning!** If your server use PHP x32, than will work only simple validation without check control sum.
 
