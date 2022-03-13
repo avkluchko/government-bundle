@@ -8,7 +8,7 @@ class OGRNValidator
     {
         $value = trim($value);
 
-        if (!preg_match('/^\d{13}$/', $value) && !preg_match('/^\d{15}$/', $value)) {
+        if (!in_array(strlen($value), [13, 15]) || !ctype_alnum($value)) {
             return false;
         }
 
@@ -32,9 +32,6 @@ class OGRNValidator
     /**
      * Check last control number on 32 bit system.
      * For this need BCMath extension
-     *
-     * @param string $value
-     * @return bool
      */
     public function checkControlNumber(string $value): bool
     {
@@ -42,7 +39,7 @@ class OGRNValidator
         $main = substr($value, 0, $length - 1);
 
         $expectedControl = substr($value, -1);
-        $realControl = substr($main % ($length - 2), -1);
+        $realControl = substr(strval($main % ($length - 2)), -1);
 
         return $realControl === $expectedControl;
     }
